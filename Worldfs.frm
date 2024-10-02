@@ -47,49 +47,81 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim equipos(7) As String
-Dim kills(9) As Integer
-Dim A, B, K As Integer
+Dim equiposA(3), equiposB(3) As String
+Dim puntajeA(3), puntajeB(3) As Integer
+Dim winA, winB As String
+Dim A, B As Integer
 Private Sub Command1_Click()
+Dim macht As String
+    
+    
+    List1.Clear
+    Randomize
+    
 
-If List1.ListCount < 4 And List2.ListCount < 4 Then
+    For A = 0 To 3
+        For B = A + 1 To 3
+        macht = equiposA(A) & " vs " & equiposA(B)
+        puntajeA(A) = Int(Rnd() * 7)
+        puntajeA(B) = Int(Rnd() * 7)
+        List1.AddItem macht & ": " & puntajeA(A) & " - " & puntajeA(B)
+        Next B
+    Next A
+    
+    List2.Clear
     
     For A = 0 To 3
-    
-        List1.AddItem equipos(A)
-    
+        For B = A + 1 To 3
+        macht = equiposB(A) & " vs " & equiposB(B)
+        puntajeB(A) = Int(Rnd() * 7)
+        puntajeB(B) = Int(Rnd() * 7)
+        List2.AddItem macht & ": " & puntajeB(A) & " - " & puntajeB(B)
+        Next B
     Next A
+  
+        
+End Sub
 
-    For B = 4 To 7
+Private Sub Command2_Click()
     
-        List2.AddItem equipos(B)
-    
-    Next B
-
-End If
-
-
+    Call Verificar(List1.List)
     
     
 End Sub
+
 Private Sub Form_Activate()
-
-    equipos(0) = "T1"
-    equipos(1) = "MAD lions"
-    equipos(2) = "Fnatic"
-    equipos(3) = "G2"
-    equipos(4) = "Gen.g"
-    equipos(5) = "Team liquid"
-    equipos(6) = "Weibo Gaming"
-    equipos(7) = "DAMWON gaming"
-
-
+    
+    equiposA(0) = "T1"
+    equiposA(1) = "Mad lions"
+    equiposA(2) = "G2"
+    equiposA(3) = "Gen.g"
+    equiposB(0) = "R7"
+    equiposB(1) = "TES"
+    equiposB(2) = "FNC"
+    equiposB(3) = "C9"
+    
 End Sub
-Private Function Puntaje()
+Private Function Verificar(maxPuntajeA As Integer, maxPuntajeB As Integer) As Integer
+Dim T As Integer
+Dim resultado As String
+    
+    maxPuntajeA = puntajeA(0)
+    winA = equiposA(0)
+    maxPuntajeB = puntajeB(0)
+    winB = equiposB(0)
 
 
+    For T = 0 To List1.ListCount
+        If puntajeA(T) > maxPuntajeA Then
+            maxPuntajeA = puntajeA(T)
+            winA = equiposA(T)
+        End If
 
+
+    
+    resultado = "ganador de la semifinal: " & winA & " pasando con " & maxPuntajeA & " puntos"
+
+    Verificar = resultado
 
 End Function
-
 
